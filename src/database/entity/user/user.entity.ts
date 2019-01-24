@@ -4,7 +4,16 @@ import {
     PrimaryGeneratedColumn,
     CreateDateColumn,
     UpdateDateColumn,
+    OneToMany,
 } from 'typeorm';
+
+import {Comment} from '../comment/comment.entity';
+
+export enum Type {
+    Admin = 'admin',
+    Author = 'author',
+    Standard = 'standard',
+}
 
 @Entity()
 export class User {
@@ -22,6 +31,15 @@ export class User {
 
     @Column({ type: 'varchar', name: 'name', length: 100})
     name: string;
+
+    @Column({ type: 'longtext', name: 'avatar'})
+    avatar: string;
+
+    @Column({ type: 'enum', enum: Type, default: Type.Standard})
+    role: Type;
+
+    @OneToMany(type => Comment, comment => comment.user)
+    comment: Comment[];
 
     @CreateDateColumn()
     createdAt: Date;
