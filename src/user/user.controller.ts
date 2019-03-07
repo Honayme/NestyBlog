@@ -24,3 +24,15 @@
 
         return await this.userService.register(registerVm);
     }
+    @Post('login')
+    @ApiCreatedResponse({ type: LoginResponseVm })
+    async login(@Body() loginVm: LoginVm): Promise<LoginResponseVm> {
+        const fields = Object.keys(loginVm);
+        fields.forEach(field => {
+            if (!loginVm[field]) {
+                throw new HttpException(`${field} is required`, HttpStatus.BAD_REQUEST);
+            }
+        });
+
+        return this.userService.login(loginVm);
+    }
