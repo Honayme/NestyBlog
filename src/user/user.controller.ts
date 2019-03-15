@@ -53,3 +53,14 @@ export class UserController {
 
         return this.userService.update(id, data);
     }
+
+    @Delete(':id')
+    @ApiOperation({title: 'Delete a user'})
+    @ApiResponse({ status: 200, description: 'User has been deleted'})
+    @ApiResponse({ status: 400, description: 'The user hasn\'t been found'})
+    @ApiResponse({ status: 404, description: 'No Users found.'})
+    @Roles('admin')
+    deleteUser(@Param('id') id: number) {
+        return this.userService.destroy(id);
+    }
+}

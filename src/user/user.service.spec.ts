@@ -47,3 +47,11 @@ describe('UserService', () => {
         userService.update(userId, dto);
         expect(updateUserSpy).toHaveBeenCalledWith(userId, dto);
     });
+
+    it('should call deleteUser method with expected param', async () => {
+        const deleteUserSpy = jest.spyOn(userService, 'destroy');
+        const userId = 2;
+        userService.destroy(userId);
+        expect(deleteUserSpy).toHaveBeenCalledWith(userId);
+    });
+});

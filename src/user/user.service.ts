@@ -28,3 +28,8 @@ export class UserService {
         return await this.userRepository.findOne({id});
     }
 
+    async destroy(@Param('id') id: number) {
+        await this.userRepository.delete(id);
+        return {deleted: true};
+    }
+}
