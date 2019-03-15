@@ -1,3 +1,15 @@
+    @Get(':id')
+    @ApiOperation({title: 'Get a user by the given id'})
+    @ApiResponse({ status: 200, description: 'User Found.'})
+    @ApiResponse({ status: 404, description: 'No User found.'})
+    @UseGuards(AuthGuard('jwt'))
+    showUserById(@CurrentUser('id') userId: number, @Param('id') id: number) {
+        if (userId) {
+            id = userId;
+        }
+
+        return this.userService.showOne(id);
+    }
     @Put(':id')
     @ApiOperation({title: 'Update an existing user with the given id'})
     @ApiResponse({ status: 200, description: 'The user has been updated'})
