@@ -24,3 +24,9 @@ export class ArticleService {
     async showOne(@Param('id') id: number) {
         return await this.articleRepository.findOne({where: {id}});
     }
+
+    async update(@Param('id') id: number,  data: Partial<ArticleDto>) {
+        await this.articleRepository.update({id}, data);
+        return await this.articleRepository.findOne({id});
+    }
+

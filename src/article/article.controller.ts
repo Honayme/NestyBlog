@@ -38,3 +38,23 @@ export class ArticleController {
     createArticle(@CurrentUser('id') userId: number, @Body() data: ArticleDto) {
         return this.articleService.create(userId, data);
     }
+
+    @Put(':id')
+    @ApiOperation({title: 'Update an article'})
+    @ApiResponse({ status: 201, description: 'Article has been updated'})
+    @ApiResponse({ status: 400, description: 'Article hasn\'t been updated'})
+    @ApiResponse({ status: 404, description: 'No Article found.'})
+    @Roles('author')
+    updateArticle(@CurrentUser('id') userId: number, @Param('id') id: number, @Body() data: Partial<ArticleDto>) {
+        if (userId) {
+            //Get the user
+            const currentUser = User.find({ where: { id: userId }, relations: ['article'] });
+            currentUser.article.forEach(function(e) {
+                if (id ===  e.id) {
+                    return this.articleService.update(id, data);
+                } else {
+                    throw new HttpException('You can\'t update articles that not belongs to you', HttpStatus.UNAUTHORIZED);
+                }
+            });
+        }
+    }

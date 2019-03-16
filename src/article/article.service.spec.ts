@@ -48,3 +48,11 @@ describe('ArticleService', () => {
         articleService.create(userId, dto);
         expect(createArticleSpy).toHaveBeenCalledWith(dto);
     });
+
+    it('should call updateArticle method with expected params', async () => {
+        const updateArticleSpy = jest.spyOn(articleService, 'update');
+        const articleId = 2;
+        const dto = new ArticleDto();
+        articleService.update(articleId, dto);
+        expect(updateArticleSpy).toHaveBeenCalledWith(articleId, dto);
+    });
