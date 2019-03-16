@@ -68,3 +68,23 @@ describe('ArticleController', () => {
             expect(await articleController.showArticleById(2)).toBe(result);
         });
     });
+
+    describe('createArticle()', () => {
+        it('should return a articles who just have been created', async () => {
+            const article: ArticleDto = {
+                id: 2,
+                title: 'Uncle Ben we miss you',
+                content: 'Great article come with great responsability',
+                like: 0,
+                dislike: 0,
+                userId: null,
+            };
+
+            // Inject la valeur article dans le retour du service
+            articleService.create = jest.fn().mockResolvedValue(article);
+            const userId = 2;
+            const result = await articleController.createArticle(userId, article);
+            // Test le retour du service à l'appel du controlleur
+            expect(await articleController.createArticle(userId, article)).toBe(result);
+        });
+    });

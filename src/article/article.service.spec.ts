@@ -40,3 +40,11 @@ describe('ArticleService', () => {
         articleService.showOne(showOneOptions);
         expect(findOneArticleSpy).toHaveBeenCalledWith(showOneOptions);
     });
+
+    it('should call saveArticle method with expected params', async () => {
+        const createArticleSpy = jest.spyOn(articleService, 'create');
+        const dto = new ArticleDto();
+        const userId = 2;
+        articleService.create(userId, dto);
+        expect(createArticleSpy).toHaveBeenCalledWith(dto);
+    });

@@ -29,3 +29,12 @@ export class ArticleController {
     showArticleById(@Param('id') id: number) {
         return this.articleService.showOne(id);
     }
+
+    @Post()
+    @ApiOperation({title: 'Create a new article'})
+    @ApiResponse({ status: 201, description: 'New article has been created'})
+    @ApiResponse({ status: 400, description: 'Article hasn\'t been created'})
+    @Roles('author')
+    createArticle(@CurrentUser('id') userId: number, @Body() data: ArticleDto) {
+        return this.articleService.create(userId, data);
+    }

@@ -12,6 +12,15 @@ export class ArticleService {
     async showAll() {
         return await this.articleRepository.find();
     }
+
+    async create(userId: number, data: ArticleDto) {
+        data.userId = userId;
+        const article = await this.articleRepository.create(data);
+
+        await this.articleRepository.save(article);
+        return article;
+    }
+
     async showOne(@Param('id') id: number) {
         return await this.articleRepository.findOne({where: {id}});
     }
