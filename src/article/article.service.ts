@@ -1,3 +1,17 @@
+import {Injectable, Param} from '@nestjs/common';
+import {Repository} from 'typeorm';
+import {InjectRepository} from '@nestjs/typeorm';
+import {ArticleDto} from './article.dto';
+import {Article} from './models/article.entity';
+
+@Injectable()
+export class ArticleService {
+    constructor(
+        @InjectRepository(Article) private articleRepository: Repository<Article>) {}
+
+    async showAll() {
+        return await this.articleRepository.find();
+    }
     async showOne(@Param('id') id: number) {
         return await this.articleRepository.findOne({where: {id}});
     }
