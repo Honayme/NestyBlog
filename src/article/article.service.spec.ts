@@ -56,3 +56,11 @@ describe('ArticleService', () => {
         articleService.update(articleId, dto);
         expect(updateArticleSpy).toHaveBeenCalledWith(articleId, dto);
     });
+
+    it('should call deleteArticle method with expected param', async () => {
+        const deleteArticleSpy = jest.spyOn(articleService, 'destroy');
+        const articleId = 2;
+        articleService.destroy(articleId);
+        expect(deleteArticleSpy).toHaveBeenCalledWith(articleId);
+    });
+});
