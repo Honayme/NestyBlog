@@ -11,6 +11,7 @@ class CommentServiceMock {
     }
 }
 
+
 describe('CommentController', () => {
     let commentController: CommentController;
     let commentService: CommentService;
@@ -119,6 +120,7 @@ describe('CommentController', () => {
                 userId: 2,
                 articleId: null,
             };
+
 
             // Inject la valeur comment dans le retour du service
             commentService.destroy = jest.fn().mockResolvedValue(comment);

@@ -1,4 +1,4 @@
-import {ApiModelProperty, ApiModelPropertyOptional} from '@nestjs/swagger';
+import {ApiModelProperty} from '@nestjs/swagger';
 
 export class LoginVm {
     @ApiModelProperty({ required: true, format: 'email', example: 'jDoe@mail.com' })

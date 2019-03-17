@@ -30,16 +30,16 @@ export class User extends BaseEntity {
     @ApiModelProperty({ example: 'Doe' }) name: string;
 
     @Column({ type: 'longtext', name: 'avatar', default: null })
-    @ApiModelProperty() avatar: string;
+    @ApiModelProperty() avatar: ArrayBuffer;
 
     @Column({ type: 'enum', enum: UserRole, default: UserRole.Standard})
     @ApiModelProperty({ example: 'standard' }) role: UserRole;
 
-    @OneToMany(type => Comment, comment => comment.userId)
-    @ApiModelProperty({ example: 'Great article' }) comment: Comment[];
+    @OneToMany(type => Comment, comment => comment.user)
+    @ApiModelProperty({ example: 1 }) comment: Comment[];
 
-    @OneToMany(type => Article, article => article.author)
-    @ApiModelProperty({ example: 'An awesome article write by my own hand' }) article: Article[];
+    @OneToMany(type => Article, article => article.user)
+    @ApiModelProperty({ example: 1 }) article: Article[];
 
     @CreateDateColumn()
     createdAt: Date;

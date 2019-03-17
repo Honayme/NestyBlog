@@ -53,12 +53,13 @@ export class CommentController {
     @ApiResponse({ status: 200, description: 'Comment has been deleted'})
     @ApiResponse({ status: 400, description: 'The comment hasn\'t been found'})
     @ApiResponse({ status: 404, description: 'No Comment found.'})
-    deleteComment(@CurrentUser('id') userId: number, @Param('id') id: number) {
+    async deleteComment(@CurrentUser('id') userId: number, @Param('id') id: number) {
         if (userId) {
             //Get the user
-            const currentUser = User.find({ where: { id: userId }, relations: ['article'] });
-            currentUser.comment.forEach(function(e) {
-                if (id === e.id) {
+            const currentUser = await User.find({ where: { id: userId }, relations: ['comment'] });
+            const currentArticle = await User.find({ where: { id: userId }, relations: ['comment'] });
+            currentUser.forEach(function(e) {
+                if (e.comment ===  this.comment.id) {
                     return this.commentService.destroy(id);
                 } else {
                     throw new HttpException('You can\'t update articles that not belongs to you', HttpStatus.UNAUTHORIZED);

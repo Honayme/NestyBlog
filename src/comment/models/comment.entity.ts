@@ -9,19 +9,22 @@ import {
 
 import { User } from '../../user/models/user.entity';
 import {Article} from '../../article/models/article.entity';
+import {ApiModelProperty} from '@nestjs/swagger';
 
 @Entity()
 export class Comment {
     @PrimaryGeneratedColumn()
-    id: number;
+    @ApiModelProperty({ example: 1 }) id: number;
 
-    @Column('text')
-    content: string;
+    @Column({ type: 'text', name: 'content'})
+    @ApiModelProperty({ example: 'Un commentaire' }) content: string;
 
     @ManyToOne(type => User, user => user.comment)
-    userId: User;
+    // @ApiModelProperty({ example: 1 }) user: User;
+    user: User;
 
-    @ManyToOne(type => Article, user => user.author)
+    @ManyToOne(type => Article, user => user.user)
+    // @ApiModelProperty({ example: 1 }) article: Article;
     article: Article;
 
     @CreateDateColumn()

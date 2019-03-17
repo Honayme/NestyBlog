@@ -4,6 +4,8 @@ import { UserService } from './user.service';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import { User } from './models/user.entity';
 import {AuthMiddleware} from '../shared/auth/auth.middleware';
+import {AuthService} from '../shared/auth/auth.service';
+import {JwtStrategyService} from '../shared/auth/strategies/jwt-strategy.service';
 
 @Module({
     imports: [TypeOrmModule.forFeature([User])],
