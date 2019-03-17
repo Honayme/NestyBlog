@@ -4,7 +4,7 @@ import {Repository} from 'typeorm';
 import {InjectRepository} from '@nestjs/typeorm';
 import {ArticleService} from './article.service';
 import {Article} from './models/article.entity';
-import {ArticleDto} from './article.dto';
+import {ArticleDto} from './dto/article.dto';
 import {CurrentUser} from '../shared/decorators/user.decorator';
 import {Roles} from '../shared/decorators/roles.decorator';
 import {User} from '../user/models/user.entity';
@@ -68,15 +68,21 @@ export class ArticleController {
     @Roles('author')
     async updateArticle(@CurrentUser('id') userId: number, @Param('id') id: number, @Body() data: Partial<ArticleDto>) {
         if (userId) {
-            //Get the user
             const currentUser = await User.find({ where: { id: userId }, relations: ['article'] });
-            currentUser.forEach(function(e) {
-                if (e.article ===  this.article) {
-                    return this.articleService.update(id, data);
+            const currentArticle = await Article.find({ where: { id }});
+            for (let i = 0;  i <= currentUser[0].article.length; i++) {
+                if (currentUser[0].article) {
+                    if (currentUser[0].article[i].id ===  currentArticle[0].id) {
+                        return this.articleService.destroy(id);
+                    } else {
+                        throw new HttpException('You can\'t update articles that not belongs to you', HttpStatus.UNAUTHORIZED);
+                    }
                 } else {
-                    throw new HttpException('You can\'t update articles that not belongs to you', HttpStatus.UNAUTHORIZED);
+                    throw new HttpException('You don\'t have articles that belongs to you', HttpStatus.UNAUTHORIZED);
                 }
-            });
+            }
+        } else {
+            throw new HttpException('You can\'t update articles that not belongs to you', HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -85,22 +91,22 @@ export class ArticleController {
     @ApiResponse({ status: 200, description: 'Article has been deleted'})
     @ApiResponse({ status: 400, description: 'The article hasn\'t been found'})
     @ApiResponse({ status: 404, description: 'No Article found.'})
+    @Roles('author')
     async deleteArticle(@CurrentUser('id') userId: number, @Param('id') id: number) {
         if (userId) {
-            //Get the user
             const currentUser = await User.find({ where: { id: userId }, relations: ['article'] });
             const currentArticle = await Article.find({ where: { id }});
-            currentUser.forEach(function(e) {
-                if (e.article) {
-                    if (e.article ===  currentArticle) {
+            for (let i = 0;  i <= currentUser[0].article.length; i++) {
+                if (currentUser[0].article) {
+                    if (currentUser[0].article[i].id ===  currentArticle[0].id) {
                         return this.articleService.destroy(id);
                     } else {
-                        throw new HttpException('You can\'t update articles that not belongs to you', HttpStatus.UNAUTHORIZED);
+                        throw new HttpException('You can\'t delete articles that not belongs to you', HttpStatus.UNAUTHORIZED);
                     }
                 } else {
                     throw new HttpException('You don\'t have articles that belongs to you', HttpStatus.UNAUTHORIZED);
                 }
-            });
+            }
         } else {
             throw new HttpException('You can\'t delete articles that not belongs to you', HttpStatus.UNAUTHORIZED);
         }
