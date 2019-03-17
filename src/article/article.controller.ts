@@ -23,6 +23,18 @@ export class ArticleController {
         return this.articleService.showAll();
     }
 
+    @Get()
+    @ApiOperation({title: 'Get List of All Articles'})
+    @ApiResponse({ status: 200, description: 'Articles Found.'})
+    @ApiResponse({ status: 404, description: 'No Articles found.'})
+    @Roles('author')
+    showAllAuthorArticles(@CurrentUser('id') userId: number) {
+        if (userId) {
+            return this.articleService.showAllAuthorArticles(userId);
+        }
+        throw new HttpException('You have to be logged on the app', HttpStatus.UNAUTHORIZED);
+    }
+
     @Get(':id')
     @ApiOperation({title: 'Get a specific article with the given id'})
     @ApiResponse({ status: 200, description: 'Article Found.'})

@@ -13,6 +13,10 @@ export class ArticleService {
         return await this.articleRepository.find();
     }
 
+    async showAllAuthorArticles(userId: number) {
+        return await this.articleRepository.find({ where: { authorId: userId} });
+    }
+
     async create(userId: number, data: ArticleDto) {
         data.userId = userId;
         const article = await this.articleRepository.create(data);
