@@ -15,5 +15,10 @@ export class CommentService {
 
         await this.commentRepository.save(comment);
         return comment;
+
+    async destroy(@Param('id') id: number) {
+        await this.commentRepository.delete(id);
+        return {deleted: true};
+
     }
 }

@@ -27,11 +27,18 @@ describe('CommentService', () => {
     it('should be defined', () => {
         expect(commentService).toBeDefined();
     });
+
     it('should call saveComment method with expected params', async () => {
         const createCommentSpy = jest.spyOn(commentService, 'create');
         const dto = new CommentDto();
         const userId = 2;
         commentService.create(userId, dto);
         expect(createCommentSpy).toHaveBeenCalledWith(dto);
+
+    it('should call deleteComment method with expected param', async () => {
+        const deleteCommentSpy = jest.spyOn(commentService, 'destroy');
+        const commentId = 2;
+        commentService.destroy(commentId);
+        expect(deleteCommentSpy).toHaveBeenCalledWith(commentId);
     });
 });
