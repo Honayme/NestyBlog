@@ -11,7 +11,6 @@ import {AppService} from './app.service';
 @Module({
   imports: [TypeOrmModule.forRoot(), UserModule,
   ],
-
   controllers: [AppController],
   providers: [AppService,
       {
@@ -24,4 +23,6 @@ import {AppService} from './app.service';
       },
   ],
 })
-export class AppModule {}
+export class AppModule {
+    constructor(private readonly connection: Connection) {}
+}

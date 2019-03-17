@@ -26,6 +26,7 @@
     "@nestjs/swagger": "^2.5.1",
     "@nestjs/typeorm": "^5.2.2",
     "@nestjs/websockets": "^5.4.0",
+     "@nestjs/testing": "^5.4.0",
     "reflect-metadata": "^0.1.12",
     "bcryptjs": "^2.4.3",
     "dotenv": "^6.2.0",
