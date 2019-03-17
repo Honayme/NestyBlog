@@ -4,7 +4,7 @@ import {Test} from '@nestjs/testing';
 import {Repository} from 'typeorm';
 import {Comment} from './models/comment.entity';
 import {InjectRepository} from '@nestjs/typeorm';
-import {CommentDto} from './comment.dto';
+import {CommentDto} from './dto/comment.dto';
 
 class CommentServiceMock {
     constructor(@InjectRepository(Comment) private commentRepository: Repository<Comment>) {

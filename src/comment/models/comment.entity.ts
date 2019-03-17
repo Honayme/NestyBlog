@@ -4,7 +4,7 @@ import {
     PrimaryGeneratedColumn,
     ManyToOne,
     CreateDateColumn,
-    UpdateDateColumn,
+    UpdateDateColumn, BaseEntity,
 } from 'typeorm';
 
 import { User } from '../../user/models/user.entity';
@@ -12,7 +12,7 @@ import {Article} from '../../article/models/article.entity';
 import {ApiModelProperty} from '@nestjs/swagger';
 
 @Entity()
-export class Comment {
+export class Comment extends BaseEntity {
     @PrimaryGeneratedColumn()
     @ApiModelProperty({ example: 1 }) id: number;
 
@@ -20,12 +20,10 @@ export class Comment {
     @ApiModelProperty({ example: 'Un commentaire' }) content: string;
 
     @ManyToOne(type => User, user => user.comment)
-    // @ApiModelProperty({ example: 1 }) user: User;
-    user: User;
+    @ApiModelProperty({ example: 1 }) user: User;
 
     @ManyToOne(type => Article, user => user.user)
-    // @ApiModelProperty({ example: 1 }) article: Article;
-    article: Article;
+    @ApiModelProperty({ example: 1 }) article: Article;
 
     @CreateDateColumn()
     createdAt: Date;

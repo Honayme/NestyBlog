@@ -1,4 +1,4 @@
-import {UserRole} from './models/userRole.enum';
+import {UserRole} from '../enums/userRole.enum';
 import {ApiModelProperty, ApiModelPropertyOptional} from '@nestjs/swagger';
 
 export class UserDto {
@@ -18,7 +18,7 @@ export class UserDto {
     readonly name: string;
 
     @ApiModelProperty()
-    readonly avatar: string;
+    readonly avatar: ArrayBuffer;
 
     @ApiModelPropertyOptional({ example: 'standard' })
     role: UserRole;

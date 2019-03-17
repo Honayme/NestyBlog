@@ -1,15 +1,21 @@
 import {ApiModelProperty} from '@nestjs/swagger';
 
-export class CommentDto {
+export class ArticleDto {
     @ApiModelProperty()
     id: number;
+
+    @ApiModelProperty()
+    readonly title: string;
 
     @ApiModelProperty()
     readonly content: string;
 
     @ApiModelProperty()
-    user: any;
+    readonly like: number;
 
     @ApiModelProperty()
-    article: any;
+    readonly dislike: number;
+
+    @ApiModelProperty()
+    user: any;
 }

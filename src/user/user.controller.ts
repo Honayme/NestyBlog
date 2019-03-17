@@ -1,6 +1,6 @@
 import {Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, ReflectMetadata, UseGuards} from '@nestjs/common';
 import {UserService} from './user.service';
-import {UserDto} from './user.dto';
+import {UserDto} from './dto/user.dto';
 import {ApiBearerAuth, ApiCreatedResponse, ApiOperation, ApiResponse} from '@nestjs/swagger';
 import {RegisterVm} from './models/register-vm.model';
 import {User} from './models/user.entity';

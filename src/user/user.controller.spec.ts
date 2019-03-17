@@ -4,8 +4,8 @@ import {Test} from '@nestjs/testing';
 import {Repository} from 'typeorm';
 import {User} from './models/user.entity';
 import {InjectRepository} from '@nestjs/typeorm';
-import {UserDto} from './user.dto';
-import {UserRole} from './models/userRole.enum';
+import {UserDto} from './dto/user.dto';
+import {UserRole} from './enums/userRole.enum';
 
 class UserServiceMock {
     constructor(@InjectRepository(User) private userRepository: Repository<User>) {

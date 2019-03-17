@@ -2,7 +2,7 @@ import {forwardRef, HttpException, HttpStatus, Inject, Injectable, Param} from '
 import {Repository} from 'typeorm';
 import {User} from './models/user.entity';
 import {InjectRepository} from '@nestjs/typeorm';
-import {UserDto} from './user.dto';
+import {UserDto} from './dto/user.dto';
 import {compare, genSalt, hash} from 'bcryptjs';
 import {RegisterVm} from './models/register-vm.model';
 import {LoginVm} from './models/login-vm.model';

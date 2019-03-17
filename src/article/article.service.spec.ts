@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 import {Article} from './models/article.entity';
 import {getRepositoryToken} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
-import {ArticleDto} from './article.dto';
+import {ArticleDto} from './dto/article.dto';
 
 describe('ArticleService', () => {
     let articleService: ArticleService;

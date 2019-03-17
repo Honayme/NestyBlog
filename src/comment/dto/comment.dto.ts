@@ -1,21 +1,16 @@
 import {ApiModelProperty} from '@nestjs/swagger';
 
-export class ArticleDto {
+export class CommentDto {
     @ApiModelProperty()
     id: number;
 
     @ApiModelProperty()
-    readonly title: string;
-
-    @ApiModelProperty()
     readonly content: string;
 
+    //Don't understand why but if i pass a specific type on this, relation fail, and userId isn't registered
     @ApiModelProperty()
-    readonly like: number;
+    user: any;
 
     @ApiModelProperty()
-    readonly dislike: number;
-
-    @ApiModelProperty()
-    user: number;
+    article: any;
 }

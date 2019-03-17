@@ -4,7 +4,7 @@ import {Test} from '@nestjs/testing';
 import {Repository} from 'typeorm';
 import {Article} from './models/article.entity';
 import {InjectRepository} from '@nestjs/typeorm';
-import {ArticleDto} from './article.dto';
+import {ArticleDto} from './dto/article.dto';
 
 class ArticleServiceMock {
     constructor(@InjectRepository(Article) private articleRepository: Repository<Article>) {

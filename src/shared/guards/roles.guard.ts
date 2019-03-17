@@ -1,5 +1,5 @@
 import {CanActivate, ExecutionContext, HttpException, HttpStatus, Injectable} from '@nestjs/common';
-import {UserRole} from '../../user/models/userRole.enum';
+import {UserRole} from '../../user/enums/userRole.enum';
 import {Reflector} from '@nestjs/core';
 import {User} from '../../user/models/user.entity';
 

@@ -4,7 +4,7 @@ import * as sinon from 'sinon';
 import {Comment} from './models/comment.entity';
 import {getRepositoryToken} from '@nestjs/typeorm';
 import {Repository} from 'typeorm';
-import {CommentDto} from './comment.dto';
+import {CommentDto} from './dto/comment.dto';
 
 describe('CommentService', () => {
     let commentService: CommentService;

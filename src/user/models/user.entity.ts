@@ -9,8 +9,9 @@ import {
 } from 'typeorm';
 import {Comment} from '../../comment/models/comment.entity';
 import {Article} from '../../article/models/article.entity';
-import {UserRole} from './userRole.enum';
+import {UserRole} from '../enums/userRole.enum';
 import {ApiModelProperty} from '@nestjs/swagger';
+import {Rubric} from '../../rubric/models/rubric.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -40,6 +41,9 @@ export class User extends BaseEntity {
 
     @OneToMany(type => Article, article => article.user)
     @ApiModelProperty({ example: 1 }) article: Article[];
+
+    @OneToMany(type => Rubric, rubric => rubric.user)
+    rubric: Rubric[];
 
     @CreateDateColumn()
     createdAt: Date;

@@ -1,7 +1,7 @@
 import {Injectable, Param} from '@nestjs/common';
 import {Repository} from 'typeorm';
 import {InjectRepository} from '@nestjs/typeorm';
-import {CommentDto} from './comment.dto';
+import {CommentDto} from './dto/comment.dto';
 import {Comment} from './models/comment.entity';
 
 @Injectable()
@@ -14,7 +14,7 @@ export class CommentService {
     }
 
     async create(userId: number, data: CommentDto) {
-        data.userId = userId;
+        data.user = userId;
         const comment = await this.commentRepository.create(data);
 
         await this.commentRepository.save(comment);

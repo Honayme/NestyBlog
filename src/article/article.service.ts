@@ -1,7 +1,7 @@
 import {Injectable, Param} from '@nestjs/common';
 import {Repository} from 'typeorm';
 import {InjectRepository} from '@nestjs/typeorm';
-import {ArticleDto} from './article.dto';
+import {ArticleDto} from './dto/article.dto';
 import {Article} from './models/article.entity';
 
 @Injectable()
@@ -18,8 +18,7 @@ export class ArticleService {
     }
 
     async create(userId: number, data: ArticleDto) {
-        data.userId = userId;
-        console.log(data);
+        data.user = userId;
         const article = await this.articleRepository.create(data);
 
         await this.articleRepository.save(article);
