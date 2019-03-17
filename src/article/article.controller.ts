@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Param, Post, Put} from '@nestjs/common';
+import {Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put} from '@nestjs/common';
 import {ApiBearerAuth, ApiOperation, ApiResponse} from '@nestjs/swagger';
 import {Repository} from 'typeorm';
 import {InjectRepository} from '@nestjs/typeorm';
@@ -7,6 +7,7 @@ import {Article} from './models/article.entity';
 import {ArticleDto} from './article.dto';
 import {CurrentUser} from '../shared/decorators/user.decorator';
 import {Roles} from '../shared/decorators/roles.decorator';
+import {User} from '../user/models/user.entity';
 
 @Controller('article')
 @ApiBearerAuth()
@@ -58,3 +59,25 @@ export class ArticleController {
             });
         }
     }
+
+    @Delete(':id')
+    @ApiOperation({title: 'Delete an article'})
+    @ApiResponse({ status: 200, description: 'Article has been deleted'})
+    @ApiResponse({ status: 400, description: 'The article hasn\'t been found'})
+    @ApiResponse({ status: 404, description: 'No Article found.'})
+    deleteArticle(@Param('id') id: number) {
+        if (userId) {
+            //Get the user
+            const currentUser = User.find({ where: { id: userId }, relations: ['article'] });
+            currentUser.article.forEach(function(e) {
+                if (id ===  e.id) {
+                    return this.articleService.destroy(id);
+                } else {
+                    throw new HttpException('You can\'t update articles that not belongs to you', HttpStatus.UNAUTHORIZED);
+                }
+            });
+        } else {
+            throw new HttpException('You can\'t delete articles that not belongs to you', HttpStatus.UNAUTHORIZED);
+        }
+    }
+}

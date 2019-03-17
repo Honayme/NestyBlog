@@ -30,3 +30,8 @@ export class ArticleService {
         return await this.articleRepository.findOne({id});
     }
 
+    async destroy(@Param('id') id: number) {
+        await this.articleRepository.delete(id);
+        return {deleted: true};
+    }
+}

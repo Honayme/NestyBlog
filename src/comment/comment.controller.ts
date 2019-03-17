@@ -15,6 +15,14 @@ export class CommentController {
     constructor(private commentService: CommentService,
                 @InjectRepository(Comment) private commentRepository: Repository<Comment>) {}
 
+    @Post()
+    @ApiOperation({title: 'Create a new comment'})
+    @ApiResponse({ status: 201, description: 'New comment has been created'})
+    @ApiResponse({ status: 400, description: 'Comment hasn\'t been created'})
+    createComment(@CurrentUser('id') userId: number, @Body() data: CommentDto) {
+        return this.commentService.create(userId, data);
+    }
+  
     @Delete(':id')
     @ApiOperation({title: 'Delete a comment'})
     @ApiResponse({ status: 200, description: 'Comment has been deleted'})

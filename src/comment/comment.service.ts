@@ -9,8 +9,16 @@ export class CommentService {
     constructor(
         @InjectRepository(Comment) private commentRepository: Repository<Comment>) {}
 
+    async create(userId: number, data: CommentDto) {
+        data.userId = userId;
+        const comment = await this.commentRepository.create(data);
+
+        await this.commentRepository.save(comment);
+        return comment;
+
     async destroy(@Param('id') id: number) {
         await this.commentRepository.delete(id);
         return {deleted: true};
+
     }
 }
